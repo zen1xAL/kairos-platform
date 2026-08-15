@@ -1,0 +1,80 @@
+:root {
+  --bg-primary: #020919;
+  --bg-surface: #061126;
+  --bg-surface-elevated: #0B1936;
+  --bg-card: rgba(11, 25, 54, 0.75);
+  --bg-card-hover: rgba(18, 36, 75, 0.85);
+  --bg-glass: rgba(255, 255, 255, 0.04);
+  --bg-glass-strong: rgba(255, 255, 255, 0.08);
+
+  --color-purple: #3B0764;
+  --color-purple-light: #581C87;
+  --color-purple-accent: #7E22CE;
+  --color-gold: #B59A57;
+  --color-gold-hover: #C9AE6B;
+  --color-cyan: #06B6D4;
+  --color-cyan-glow: rgba(6, 182, 212, 0.4);
+  --color-green: #10B981;
+  --color-red: #EF4444;
+
+  --text-primary: #FFFFFF;
+  --text-secondary: #CBD5E1;
+  --text-muted: #64748B;
+  --text-dim: #475569;
+
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-glass: rgba(255, 255, 255, 0.15);
+  --border-active: rgba(6, 182, 212, 0.5);
+
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.7);
+  --shadow-glow-purple: 0 0 30px rgba(88, 28, 135, 0.35);
+  --shadow-glow-cyan: 0 0 25px rgba(6, 182, 212, 0.3);
+
+  --font-family: 'Bruno Ace', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.75rem;
+  --text-5xl: clamp(2.2rem, 5vw, 4.2rem);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  --container-max: 1440px;
+  --header-height: 80px;
+  --header-height-mobile: 64px;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 9999px;
+
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 0.15s;
+  --duration-normal: 0.3s;
+  --duration-smooth: 0.5s;
+
+  --z-background: -1;
+  --z-base: 1;
+  --z-dropdown: 50;
+  --z-header: 100;
+  --z-drawer: 200;
+  --z-modal: 300;
+}

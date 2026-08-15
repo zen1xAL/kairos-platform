@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace&display=swap');
+
+.heading-hero {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: var(--text-5xl);
+  line-height: 1.15;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.heading-card {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: var(--text-2xl);
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.text-body {
+  font-family: var(--font-family);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.text-sm {
+  font-family: var(--font-family);
+  font-size: var(--text-sm);
+  line-height: 1.4;
+}
+
+.text-xs {
+  font-family: var(--font-family);
+  font-size: var(--text-xs);
+  line-height: 1.3;
+}
