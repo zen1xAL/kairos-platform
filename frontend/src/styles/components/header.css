@@ -1,0 +1,190 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-h);
+  z-index: var(--z-header);
+  background-color: var(--bg-header);
+  transition: background-color var(--duration-normal) var(--ease-standard);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding-left: var(--header-padding-x);
+  padding-right: var(--header-padding-x);
+}
+
+.header__logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.header__logo-img {
+  height: var(--logo-h);
+  width: auto;
+  display: block;
+}
+
+.header__nav {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .header__nav {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.header__nav-list {
+  display: flex;
+  align-items: center;
+  gap: var(--nav-gap);
+}
+
+.header__nav-item {
+  display: flex;
+  align-items: center;
+  height: var(--nav-item-h);
+  gap: var(--nav-gap);
+}
+
+.header__nav-divider {
+  width: var(--border-width-sm);
+  height: var(--divider-height);
+  background-color: var(--border-glass);
+}
+
+.header__nav-link {
+  font-family: var(--font-family);
+  font-size: var(--nav-fs);
+  line-height: var(--nav-item-h);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.header__nav-link:hover,
+.header__nav-link--active {
+  color: var(--text-primary);
+}
+
+.header__burger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--control-size-lg);
+  height: var(--control-size-lg);
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+@media (min-width: 1024px) {
+  .header__burger {
+    display: none;
+  }
+}
+
+.header__burger:hover {
+  background-color: var(--bg-glass-strong);
+}
+
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-drawer);
+  pointer-events: none;
+  visibility: hidden;
+  transition: visibility var(--duration-normal) var(--ease-standard);
+}
+
+.drawer--open {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.drawer__backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: var(--bg-overlay);
+  backdrop-filter: blur(var(--blur-md));
+  -webkit-backdrop-filter: blur(var(--blur-md));
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-standard);
+}
+
+.drawer--open .drawer__backdrop {
+  opacity: 1;
+}
+
+.drawer__content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: var(--drawer-width);
+  background-color: var(--bg-surface-elevated);
+  border-left: var(--border-width-sm) solid var(--border-glass);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform var(--duration-normal) var(--ease-smooth);
+}
+
+.drawer--open .drawer__content {
+  transform: translateX(0);
+}
+
+.drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-6);
+  border-bottom: var(--border-width-sm) solid var(--border-subtle);
+}
+
+.drawer__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--control-size-md);
+  height: var(--control-size-md);
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  transition: color var(--duration-fast) var(--ease-standard),
+              background-color var(--duration-fast) var(--ease-standard);
+}
+
+.drawer__close:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-glass-strong);
+}
+
+.drawer__nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+}
+
+.drawer__nav-link {
+  font-family: var(--font-family);
+  font-size: var(--text-base);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.drawer__nav-link:hover,
+.drawer__nav-link--active {
+  color: var(--color-cyan);
+}

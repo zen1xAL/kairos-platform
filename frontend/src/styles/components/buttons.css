@@ -1,0 +1,95 @@
+.btn-composite {
+  display: inline-flex;
+  align-items: stretch;
+  width: var(--hero-btn-w);
+  height: var(--hero-btn-h);
+  font-family: var(--font-family);
+  font-size: var(--hero-btn-fs);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
+  background-color: transparent;
+  border: none;
+  transition: transform var(--duration-fast) var(--ease-standard),
+              box-shadow var(--duration-normal) var(--ease-standard);
+}
+
+.btn-composite:active {
+  transform: scale(0.97);
+}
+
+.btn-composite__label {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.2;
+  font-weight: 700;
+  padding: 0 var(--space-4);
+  z-index: 1;
+}
+
+.btn-composite__bevel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--hero-btn-bevel-w) + 18px);
+  margin-left: -18px;
+  clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%);
+  z-index: 2;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+.btn-composite__bevel-icon {
+  width: var(--btn-icon-size);
+  height: var(--btn-icon-size);
+  display: block;
+}
+
+.btn-composite--learn {
+  background-color: transparent;
+  border: none;
+}
+
+.btn-composite--learn .btn-composite__label {
+  background-color: var(--text-primary);
+  color: var(--color-purple-brand);
+}
+
+.btn-composite--learn .btn-composite__bevel {
+  background-color: var(--color-purple-brand);
+  color: var(--text-primary);
+}
+
+.btn-composite--learn:hover {
+  box-shadow: 0 0 25px rgba(39, 0, 91, 0.6);
+}
+
+.btn-composite--learn:hover .btn-composite__bevel {
+  background-color: var(--color-purple-light);
+}
+
+.btn-composite--play {
+  background-color: transparent;
+  border: var(--border-width-sm) solid var(--text-primary);
+}
+
+.btn-composite--play .btn-composite__label {
+  background-color: transparent;
+  color: var(--text-primary);
+}
+
+.btn-composite--play .btn-composite__bevel {
+  background-color: var(--text-primary);
+  color: var(--color-purple-brand);
+}
+
+.btn-composite--play:hover {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.05);
+}

@@ -7,10 +7,121 @@
   <meta name="description" content="KAIROS Online Banking and Real-Time Crypto Asset Management Platform">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bruno+Ace&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./src/styles/main.css">
 </head>
 <body>
-  <div id="app"></div>
+  <header class="header">
+    <div class="header__inner">
+      <a href="#" class="header__logo" aria-label="KAIROS Platform Home">
+        <img src="./assets/icons/logo.svg" alt="KAIROS" class="header__logo-img">
+      </a>
+
+      <nav class="header__nav" aria-label="Main Navigation">
+        <ul class="header__nav-list">
+          <li class="header__nav-item">
+            <a href="#home" class="header__nav-link header__nav-link--active">HOME</a>
+            <span class="header__nav-divider" aria-hidden="true"></span>
+          </li>
+          <li class="header__nav-item">
+            <a href="#about" class="header__nav-link">ABOUT US</a>
+            <span class="header__nav-divider" aria-hidden="true"></span>
+          </li>
+          <li class="header__nav-item">
+            <a href="#projects" class="header__nav-link">PROJECTS</a>
+            <span class="header__nav-divider" aria-hidden="true"></span>
+          </li>
+          <li class="header__nav-item">
+            <a href="#contact" class="header__nav-link">CONTACT US</a>
+          </li>
+        </ul>
+      </nav>
+
+      <button class="header__burger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-drawer" data-action="open-menu">
+        <img src="./assets/icons/menu.svg" alt="" aria-hidden="true">
+      </button>
+    </div>
+  </header>
+
+  <div id="mobile-drawer" class="drawer" aria-hidden="true">
+    <div class="drawer__backdrop" data-action="close-menu"></div>
+    <div class="drawer__content" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+      <div class="drawer__header">
+        <a href="#" class="header__logo" aria-label="KAIROS Platform Home">
+          <img src="./assets/icons/logo.svg" alt="KAIROS" class="header__logo-img">
+        </a>
+        <button class="drawer__close" aria-label="Close navigation menu" data-action="close-menu">
+          <img src="./assets/icons/close.svg" alt="" aria-hidden="true">
+        </button>
+      </div>
+      <nav class="drawer__nav" aria-label="Mobile Menu Links">
+        <ul class="drawer__nav-list">
+          <li><a href="#home" class="drawer__nav-link drawer__nav-link--active" data-action="nav-link">HOME</a></li>
+          <li><a href="#about" class="drawer__nav-link" data-action="nav-link">ABOUT US</a></li>
+          <li><a href="#projects" class="drawer__nav-link" data-action="nav-link">PROJECTS</a></li>
+          <li><a href="#contact" class="drawer__nav-link" data-action="nav-link">CONTACT US</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <main id="app">
+    <section class="hero" id="home">
+      <div class="hero__media" aria-hidden="true">
+        <video class="hero__video" autoplay muted loop playsinline>
+          <source src="./assets/video/HP.mp4" type="video/mp4">
+        </video>
+        <div class="hero__overlay"></div>
+      </div>
+
+      <div class="hero__layout">
+        <div class="hero__content">
+          <h1 class="hero__title">FROM THE<br>FIELD OF ALL<br>POSSIBILITY</h1>
+          <p class="hero__description">This is an emergent space where ideas are not created, but carefully discovered. We navigate the vast potential to bring forth only the most resonant patterns and coherent forms. Here, the future is curated from the infinite.</p>
+          <div class="hero__actions">
+            <button class="btn-composite btn-composite--learn" data-action="open-learn-more">
+              <span class="btn-composite__label">LEARN<br>MORE</span>
+              <span class="btn-composite__bevel">
+                <img src="./assets/icons/arrow-right.svg" alt="" class="btn-composite__bevel-icon" aria-hidden="true">
+              </span>
+            </button>
+            <button class="btn-composite btn-composite--play" data-action="open-video-modal" aria-label="Play video presentation">
+              <span class="btn-composite__label">PLAY<br>VIDEO</span>
+              <span class="btn-composite__bevel">
+                <img src="./assets/icons/play.svg" alt="" class="btn-composite__bevel-icon" aria-hidden="true">
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <aside class="auth-widget" data-active-tab="sign-in" aria-label="Online Banking">
+          <div class="auth-widget__header">
+            <h2 class="auth-widget__title">ONLINE BANKING</h2>
+          </div>
+          <div class="auth-widget__tabs-wrap" role="tablist">
+            <button class="auth-widget__tab auth-widget__tab--active" role="tab" aria-selected="true" data-tab="sign-in">
+              <span class="auth-widget__tab-text">Sign In</span>
+            </button>
+            <button class="auth-widget__tab" role="tab" aria-selected="false" data-tab="enter-email">
+              <span class="auth-widget__tab-text">Enter Email</span>
+            </button>
+          </div>
+          <div class="auth-widget__body">
+            <div class="auth-widget__inner">
+              <button class="auth-widget__google-btn" data-action="auth-google">
+                <img src="./assets/icons/google.svg" alt="" class="auth-widget__google-icon" aria-hidden="true">
+                <span>Google</span>
+              </button>
+              <p class="auth-widget__cta-text">Start Your Journey Now!</p>
+              <div class="auth-widget__divider" aria-hidden="true">or</div>
+              <button class="auth-widget__create-btn" data-action="auth-create">Create account</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
   <script type="module" src="./src/main.ts"></script>
 </body>
 </html>

@@ -1,15 +1,19 @@
 :root {
-  --bg-primary: #020919;
+  --bg-primary: #031C39;
   --bg-surface: #061126;
   --bg-surface-elevated: #0B1936;
   --bg-card: rgba(11, 25, 54, 0.75);
   --bg-card-hover: rgba(18, 36, 75, 0.85);
   --bg-glass: rgba(255, 255, 255, 0.04);
   --bg-glass-strong: rgba(255, 255, 255, 0.08);
+  --bg-header: transparent;
+  --bg-overlay: rgba(0, 0, 0, 0.7);
+  --bg-overlay-heavy: rgba(0, 0, 0, 0.85);
 
   --color-purple: #3B0764;
-  --color-purple-light: #581C87;
-  --color-purple-accent: #7E22CE;
+  --color-purple-light: #3D008D;
+  --color-purple-accent: #27005B;
+  --color-purple-brand: #27005B;
   --color-gold: #B59A57;
   --color-gold-hover: #C9AE6B;
   --color-cyan: #06B6D4;
@@ -22,9 +26,16 @@
   --text-muted: #64748B;
   --text-dim: #475569;
 
+  --border-width-sm: 1px;
+  --border-width-md: 2px;
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-glass: rgba(255, 255, 255, 0.15);
   --border-active: rgba(6, 182, 212, 0.5);
+
+  --blur-sm: 4px;
+  --blur-md: 8px;
+  --blur-lg: 12px;
+  --blur-xl: 16px;
 
   --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
@@ -34,6 +45,11 @@
 
   --font-family: 'Bruno Ace', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
+  --tracking-normal: 0em;
+  --tracking-wide: 0.05em;
+  --tracking-wider: 0.08em;
+  --tracking-widest: 0.12em;
+
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1rem;
@@ -42,7 +58,7 @@
   --text-2xl: 1.5rem;
   --text-3xl: 2rem;
   --text-4xl: 2.75rem;
-  --text-5xl: clamp(2.2rem, 5vw, 4.2rem);
+  --text-5xl: 4rem;
 
   --space-1: 4px;
   --space-2: 8px;
@@ -55,9 +71,80 @@
   --space-12: 48px;
   --space-16: 64px;
 
-  --container-max: 1440px;
-  --header-height: 80px;
-  --header-height-mobile: 64px;
+  --container-max: 1920px;
+  --header-h: 6.5rem;
+  --header-padding-x: 2.5rem;
+  --logo-h: 2.375rem;
+  --nav-gap: 1.875rem;
+  --nav-item-h: 1.75rem;
+  --nav-fs: 1.125rem;
+
+  --hero-w: 115rem;
+  --hero-h: 34.125rem;
+  --hero-pt: 15.875rem;
+
+  --hero-title-w: 58.3125rem;
+  --hero-title-h: 21.75rem;
+  --hero-title-fs: 6rem;
+  --hero-title-lh: 1.16;
+
+  --hero-desc-w: 63.5rem;
+  --hero-desc-h: 4.125rem;
+  --hero-desc-fs: 1.125rem;
+  --hero-desc-lh: 1.5;
+
+  --hero-gap-title-desc: 2.5rem;
+  --hero-gap-desc-btns: 2.3125rem;
+  --hero-gap-btns: 2.5rem;
+
+  --hero-btn-w: 12.9375rem;
+  --hero-btn-h: 3.4375rem;
+  --hero-btn-bevel-w: 3.4375rem;
+  --hero-btn-fs: 0.875rem;
+  --clip-bevel: polygon(25% 0, 100% 0, 100% 100%, 0 100%);
+
+  --auth-w: 26.5625rem;
+  --auth-h: 28.4375rem;
+  --auth-pt: 1.875rem;
+  --auth-pb: 1.875rem;
+  --auth-header-title-h: 2.5rem;
+  --auth-header-title-fs: 2rem;
+  --auth-gap-title-tabs: 1.875rem;
+  --auth-tab-h: 2.9375rem;
+  --auth-tab-text-w: auto;
+  --auth-tab-text-h: auto;
+  --auth-tab-fs: 1.125rem;
+  --auth-tab-radius: 1rem;
+  --tab-radius: 1rem;
+  --auth-body-pt: 3.125rem;
+  --auth-inner-w: 21.5625rem;
+  --auth-inner-h: 14.25rem;
+  --auth-inner-gap: 1.875rem;
+  --auth-btn-h: 3rem;
+  --auth-btn-fs: 1rem;
+  --auth-google-icon-size: 1.25rem;
+  --auth-journey-text-w: 16.0625rem;
+  --auth-journey-text-h: 1.4375rem;
+  --auth-journey-fs: 1rem;
+  --auth-journey-color: #000000;
+  --auth-divider-w: 21.5625rem;
+  --auth-divider-h: 1.1875rem;
+  --auth-divider-fs: 0.875rem;
+  --auth-divider-color: #94A3B8;
+  --auth-divider-line: #CBD5E1;
+
+  --auth-header-bg: var(--color-purple-brand);
+  --auth-card-bg: #FFFFFF;
+  --auth-text-dark: #000000;
+  --auth-border: #E2E8F0;
+  --auth-tab-active-border: var(--color-purple-brand);
+
+  --drawer-width: min(320px, 85vw);
+  --divider-height: 14px;
+
+  --control-size-sm: 32px;
+  --control-size-md: 40px;
+  --control-size-lg: 44px;
 
   --radius-sm: 6px;
   --radius-md: 12px;
@@ -77,4 +164,34 @@
   --z-header: 100;
   --z-drawer: 200;
   --z-modal: 300;
+}
+
+@media (max-width: 1200px) {
+  :root {
+    --hero-title-fs: 4rem;
+    --hero-title-w: 100%;
+    --hero-title-h: auto;
+    --hero-desc-w: 100%;
+    --hero-desc-h: auto;
+    --hero-h: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --header-h: 4rem;
+    --header-padding-x: 1.25rem;
+    --logo-h: 1.75rem;
+    --nav-gap: 1rem;
+    --hero-pt: 6rem;
+    --hero-title-fs: 2.25rem;
+    --hero-desc-fs: 0.875rem;
+    --hero-btn-w: 100%;
+    --auth-w: 100%;
+    --auth-h: auto;
+    --auth-inner-w: 100%;
+    --auth-divider-w: 100%;
+    --auth-journey-text-w: 100%;
+    --text-5xl: 2rem;
+  }
 }
