@@ -1,4 +1,4 @@
-type AuthTab = 'sign-in' | 'enter-email';
+type AuthTab = 'personal' | 'business';
 
 function setActiveTab(container: HTMLElement, activeTab: AuthTab): void {
   container.dataset.activeTab = activeTab;
@@ -17,7 +17,7 @@ export function initAuthWidget(): void {
     return;
   }
 
-  setActiveTab(widget, 'sign-in');
+  setActiveTab(widget, 'personal');
 
   widget.addEventListener('click', (event: MouseEvent): void => {
     const target = event.target as HTMLElement | null;
@@ -37,6 +37,12 @@ export function initAuthWidget(): void {
     const googleBtn = target.closest<HTMLButtonElement>('.auth-widget__google-btn');
     if (googleBtn) {
       document.dispatchEvent(new CustomEvent('auth:google'));
+      return;
+    }
+
+    const emailBtn = target.closest<HTMLButtonElement>('.auth-widget__email-btn');
+    if (emailBtn) {
+      document.dispatchEvent(new CustomEvent('auth:email'));
       return;
     }
 

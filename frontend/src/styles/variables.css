@@ -16,6 +16,7 @@
   --color-purple-brand: #27005B;
   --color-gold: #B59A57;
   --color-gold-hover: #C9AE6B;
+  --color-gold-soft: #BDAB6E;
   --color-cyan: #06B6D4;
   --color-cyan-glow: rgba(6, 182, 212, 0.4);
   --color-green: #10B981;
@@ -120,6 +121,9 @@
   --auth-inner-w: 21.5625rem;
   --auth-inner-h: 14.25rem;
   --auth-inner-gap: 1.875rem;
+  --auth-gap-input-btn: 0.9375rem;
+  --auth-gap-btn-line: 2.5rem;
+  --auth-gap-line-text: 2.5rem;
   --auth-btn-h: 3rem;
   --auth-btn-fs: 1rem;
   --auth-google-icon-size: 1.25rem;
@@ -141,6 +145,27 @@
 
   --drawer-width: min(320px, 85vw);
   --divider-height: 14px;
+
+  --modal-close-size: 46px;
+  --modal-text-w: 1464px;
+  --modal-text-h: 763px;
+  --modal-text-pt: 60px;
+  --modal-text-pl: 60px;
+  --modal-text-pr: 149px;
+  --modal-text-pb: 145px;
+  --modal-text-gap: 40px;
+  --modal-text-title-fs: 48px;
+  --modal-text-body-fs: 18px;
+  --modal-text-body-lh: 22px;
+  --modal-video-w: 1465px;
+  --modal-video-h: 764px;
+  --modal-video-header-h: 60px;
+  --player-btn-w: 33.81px;
+  --player-btn-h: 30px;
+  --player-edge-x: 33.81px;
+  --player-edge-bottom: 27px;
+  --player-big-size: 124px;
+  --player-triangle: 52px;
 
   --control-size-sm: 32px;
   --control-size-md: 40px;
@@ -164,6 +189,29 @@
   --z-header: 100;
   --z-drawer: 200;
   --z-modal: 300;
+
+  --crypto-bg: var(--bg-primary);
+  --crypto-rings-size: 47.75rem;
+  --crypto-hub-btn-w: 21.625rem;
+  --crypto-hub-btn-h: 3rem;
+  --crypto-hub-gap: 3.125rem;
+  --crypto-wave-stroke-1: rgba(56, 189, 248, 0.45);
+  --crypto-wave-stroke-2: rgba(56, 189, 248, 0.3);
+  --crypto-wave-stroke-3: rgba(56, 189, 248, 0.2);
+  --crypto-wave-glow: rgba(6, 182, 212, 0.35);
+  --crypto-hub-glow: radial-gradient(circle, rgba(14, 62, 120, 0.85) 0%, rgba(6, 38, 77, 0.45) 45%, transparent 72%);
+  --crypto-hub-title-fs: 1.75rem;
+  --crypto-hub-btn-bg: #FFFFFF;
+  --crypto-hub-btn-text: #27005B;
+  --crypto-hub-btn-hover: #F1F5F9;
+  --crypto-price-up: var(--color-green);
+  --crypto-price-down: var(--color-red);
+  --crypto-price-glow-up: rgba(16, 185, 129, 0.6);
+  --crypto-price-glow-down: rgba(239, 68, 68, 0.6);
+  --crypto-item-gap: 1.25rem;
+  --crypto-icon-size: 2rem;
+  --crypto-item-fs: 1.125rem;
+  --crypto-rings-max-w: 43.75rem;
 }
 
 @media (max-width: 1200px) {

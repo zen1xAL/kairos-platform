@@ -66,7 +66,7 @@
   line-height: var(--nav-item-h);
   letter-spacing: var(--tracking-wider);
   text-transform: uppercase;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   transition: color var(--duration-fast) var(--ease-standard);
 }
 

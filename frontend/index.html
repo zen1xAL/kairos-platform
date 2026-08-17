@@ -94,21 +94,21 @@
           </div>
         </div>
 
-        <aside class="auth-widget" data-active-tab="sign-in" aria-label="Online Banking">
+        <aside class="auth-widget" data-active-tab="personal" aria-label="Online Banking">
           <div class="auth-widget__header">
             <h2 class="auth-widget__title">ONLINE BANKING</h2>
           </div>
           <div class="auth-widget__tabs-wrap" role="tablist">
-            <button class="auth-widget__tab auth-widget__tab--active" role="tab" aria-selected="true" data-tab="sign-in">
-              <span class="auth-widget__tab-text">Sign In</span>
+            <button class="auth-widget__tab auth-widget__tab--active" role="tab" aria-selected="true" data-tab="personal">
+              <span class="auth-widget__tab-text">Personal</span>
             </button>
-            <button class="auth-widget__tab" role="tab" aria-selected="false" data-tab="enter-email">
-              <span class="auth-widget__tab-text">Enter Email</span>
+            <button class="auth-widget__tab" role="tab" aria-selected="false" data-tab="business">
+              <span class="auth-widget__tab-text">Business</span>
             </button>
           </div>
           <div class="auth-widget__body">
-            <div class="auth-widget__inner">
-              <button class="auth-widget__google-btn" data-action="auth-google">
+            <div class="auth-widget__inner auth-widget__panel auth-widget__panel--personal">
+              <button class="auth-widget__solid-btn auth-widget__google-btn" data-action="auth-google">
                 <img src="./assets/icons/google.svg" alt="" class="auth-widget__google-icon" aria-hidden="true">
                 <span>Google</span>
               </button>
@@ -116,11 +116,127 @@
               <div class="auth-widget__divider" aria-hidden="true">or</div>
               <button class="auth-widget__create-btn" data-action="auth-create">Create account</button>
             </div>
+            <div class="auth-widget__inner auth-widget__panel auth-widget__panel--business">
+              <input type="email" class="auth-widget__input" placeholder="Enter Email" aria-label="Enter Email">
+              <button class="auth-widget__solid-btn auth-widget__email-btn" data-action="auth-email">
+                <span>Sign in with Email</span>
+              </button>
+              <div class="auth-widget__line" aria-hidden="true"></div>
+              <p class="auth-widget__cta-text">Start Your Journey Now!</p>
+            </div>
           </div>
         </aside>
       </div>
     </section>
+
+    <section class="crypto-orbit" id="projects" aria-label="Cryptocurrency Assets">
+      <div class="crypto-orbit__decoration crypto-orbit__decoration--top" aria-hidden="true">
+        <svg width="460" height="209" viewBox="0 0 460 209" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g opacity="0.5">
+            <path class="crypto-orbit__decoration-path" d="M0.85011 208.024C0.850114 190.024 0.0623536 123.198 0.850116 93.5246C1.06243 85.5275 4.58025 81.3485 7.35009 78.0246C9.85005 75.0246 63.1835 28.5246 88.8501 6.02463C90.3501 4.70971 96.3501 0.124633 104.35 0.524633C112.35 0.924633 344.35 0.6913 459.35 0.524633" stroke="white"/>
+            <circle class="crypto-orbit__decoration-dot" cx="1" cy="208" r="5.5" fill="white" stroke="white"/>
+            <circle class="crypto-orbit__decoration-dot" cx="459" cy="1" r="5.5" fill="white" stroke="white"/>
+          </g>
+        </svg>
+      </div>
+      <div class="crypto-orbit__decoration crypto-orbit__decoration--bottom" aria-hidden="true">
+        <svg width="627" height="301" viewBox="0 0 627 301" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g opacity="0.5">
+            <path class="crypto-orbit__decoration-path" d="M8 294.501L237 294.501C247 294.501 251.5 289.901 253.5 287.501C255.5 285.101 290.167 243.168 307.5 221.501C310.3 218.001 314.9 210.801 324.5 210.001C334.1 209.201 470.833 209.668 539 210.001C545.5 210.001 551.2 206.201 554 203.001C556.8 199.801 594.5 159.001 613 139.001C616.238 135.501 621 130.09 621 122.001C621 113.501 620.5 43.001 621 8.50098" stroke="white"/>
+            <circle class="crypto-orbit__decoration-dot" cx="6" cy="295" r="5.5" fill="white" stroke="white"/>
+            <circle class="crypto-orbit__decoration-dot" cx="621" cy="6" r="5.5" fill="white" stroke="white"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="crypto-orbit__container">
+        <div class="crypto-orbit__rail crypto-orbit__rail--left" role="list" aria-label="Cryptocurrencies orbit left"></div>
+
+        <div class="crypto-orbit__center">
+          <div class="crypto-orbit__glow" aria-hidden="true"></div>
+          <div class="crypto-orbit__waves" aria-hidden="true">
+            <svg class="crypto-orbit__svg" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="waveNoiseFilter" x="-20%" y="-20%" width="140%" height="140%">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise" />
+                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="14" xChannelSelector="R" yChannelSelector="G" />
+                </filter>
+              </defs>
+              <circle class="crypto-orbit__wave-ring crypto-orbit__wave-ring--1" cx="400" cy="400" r="290" filter="url(#waveNoiseFilter)" />
+              <circle class="crypto-orbit__wave-ring crypto-orbit__wave-ring--2" cx="400" cy="400" r="330" filter="url(#waveNoiseFilter)" />
+              <circle class="crypto-orbit__wave-ring crypto-orbit__wave-ring--3" cx="400" cy="400" r="370" filter="url(#waveNoiseFilter)" />
+            </svg>
+          </div>
+          <div class="crypto-orbit__hub">
+            <h2 class="crypto-orbit__hub-title">ONLINE BANKING</h2>
+            <div class="crypto-orbit__dropdown">
+              <button class="crypto-orbit__add-btn" data-action="open-add-crypto" aria-haspopup="true" aria-expanded="false">
+                <span>Add a Cryptocurrency</span>
+                <span class="crypto-orbit__add-btn-arrow" aria-hidden="true">&gt;</span>
+              </button>
+              <div class="crypto-orbit__menu">
+                <div class="crypto-orbit__menu-inner">
+                  <ul class="crypto-orbit__menu-list" role="list">
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="crypto-orbit__rail crypto-orbit__rail--right" role="list" aria-label="Cryptocurrencies orbit right"></div>
+      </div>
+    </section>
   </main>
+
+  <dialog id="learn-more-modal" class="text-modal" aria-labelledby="learn-more-title">
+    <button class="modal-close" data-action="close-modal" aria-label="Close dialog">
+      <img src="./assets/icons/close.svg" alt="" class="modal-close__icon" aria-hidden="true">
+    </button>
+    <div class="text-modal__content">
+      <h2 id="learn-more-title" class="text-modal__title">The Digital Bridge<br>Between Reality<br>and Tomorrow</h2>
+      <p class="text-modal__paragraph">When you turn on your smart alarm clock in the morning of 2026, it already knows you slept seventeen minutes less than usual. The algorithm picks a morning playlist based on your heart rate and the current moon phase. Your voice assistant, trained on thousands of previous conversations, doesn't just say &ldquo;good morning&rdquo; &ndash; it reminds you: &ldquo;Don't forget to pick up your package from the drone post before 10:30 AM.&rdquo; You step up to the mirror, and instead of your reflection, you see graphs of your hydration levels, your daily schedule, and a suggestion: &ldquo;You might want to take extra vitamin D &ndash; it's going to be cloudy today.&rdquo;</p>
+      <p class="text-modal__paragraph">In the evening, you activate &ldquo;dark matter&rdquo; mode at home: the lights dim gradually, following your movement; the Wi-Fi reallocates bandwidth to stream a movie in 32K; and the lounge chair warms up exactly the spot on your back that got tired from sitting. On screen &ndash; not just a film: a generative neural network adjusts the subtitles, replaces store signs with brands you recognize, and even redubs the actors if you whisper a request.</p>
+      <p class="text-modal__paragraph">When you turn on your smart alarm clock in the morning of 2026, it already knows you slept seventeen minutes less than usual. The algorithm picks a morning playlist based on your heart rate and the current moon phase.</p>
+    </div>
+  </dialog>
+
+  <dialog id="video-modal" class="video-modal" aria-label="Video presentation">
+    <video class="video-modal__video" src="./assets/video/HP.mp4" loop playsinline></video>
+
+    <div class="video-modal__header">
+      <button class="video-modal__control" data-video-action="toggle" aria-label="Play or pause">
+        <svg viewBox="0 0 52 46" class="video-modal__control-icon" aria-hidden="true">
+          <path d="M15 9 L41 23 L15 37 Z" fill="white" stroke="white" stroke-width="10" stroke-linejoin="round"></path>
+        </svg>
+      </button>
+      <div class="video-modal__header-group">
+        <button class="video-modal__control" data-video-action="mute" aria-label="Toggle sound">
+          <svg viewBox="0 0 52 46" class="video-modal__control-icon" aria-hidden="true">
+            <path d="M6 17 H15 L26 8 V38 L15 29 H6 Z" fill="white"></path>
+            <path class="video-modal__waves" d="M32 15 C37 19 37 27 32 31 M37 10 C45 16 45 30 37 36" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"></path>
+            <path class="video-modal__muted-mark" d="M32 16 L44 30 M44 16 L32 30" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"></path>
+          </svg>
+        </button>
+        <button class="video-modal__control" data-video-action="fullscreen" aria-label="Toggle fullscreen">
+          <svg viewBox="0 0 52 46" class="video-modal__control-icon" aria-hidden="true">
+            <path d="M4 4 H18 M4 4 V16 M48 4 H34 M48 4 V16 M4 42 H18 M4 42 V30 M48 42 H34 M48 42 V30" fill="none" stroke="white" stroke-width="5" stroke-linecap="round"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <button class="video-modal__play-big" data-video-action="toggle" aria-label="Play video">
+      <svg viewBox="0 0 124 124" class="video-modal__play-big-icon" aria-hidden="true">
+        <circle cx="62" cy="62" r="61" fill="none" stroke="white" stroke-width="2"></circle>
+        <path d="M50 36 L88 62 L50 88 Z" fill="white" stroke="white" stroke-width="14" stroke-linejoin="round"></path>
+      </svg>
+    </button>
+
+    <button class="modal-close video-modal__close" data-action="close-modal" aria-label="Close video">
+      <img src="./assets/icons/close.svg" alt="" class="modal-close__icon" aria-hidden="true">
+    </button>
+  </dialog>
 
   <script type="module" src="./src/main.ts"></script>
 </body>

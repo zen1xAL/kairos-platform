@@ -17,3 +17,5 @@ backend/.env
 Thumbs.db
 __MACOSX/
 *.log
+
+gui-test-screenshots/

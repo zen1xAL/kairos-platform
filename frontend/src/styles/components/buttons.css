@@ -1,4 +1,5 @@
 .btn-composite {
+  position: relative;
   display: inline-flex;
   align-items: stretch;
   width: var(--hero-btn-w);
@@ -58,7 +59,14 @@
 
 .btn-composite--learn .btn-composite__label {
   background-color: var(--text-primary);
+  background-image: linear-gradient(to left, var(--color-purple-brand), var(--color-purple-brand));
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 0% 100%;
   color: var(--color-purple-brand);
+  transition: background-size 0.4s var(--ease-smooth),
+    background-color 0.4s var(--ease-smooth),
+    color 0.4s var(--ease-smooth);
 }
 
 .btn-composite--learn .btn-composite__bevel {
@@ -66,12 +74,18 @@
   color: var(--text-primary);
 }
 
+.btn-composite--learn .btn-composite__bevel-icon {
+  filter: brightness(0) invert(1);
+}
+
 .btn-composite--learn:hover {
   box-shadow: 0 0 25px rgba(39, 0, 91, 0.6);
 }
 
-.btn-composite--learn:hover .btn-composite__bevel {
-  background-color: var(--color-purple-light);
+.btn-composite--learn:hover .btn-composite__label {
+  background-size: 100% 100%;
+  background-color: var(--color-purple-brand);
+  color: var(--text-primary);
 }
 
 .btn-composite--play {
@@ -89,7 +103,22 @@
   color: var(--color-purple-brand);
 }
 
-.btn-composite--play:hover {
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-  background-color: rgba(255, 255, 255, 0.05);
+.btn-composite--play::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: auto;
+  right: 0;
+  width: 0;
+  background-color: var(--text-primary);
+  transition: width 0.4s var(--ease-smooth);
+}
+
+.btn-composite--play:hover::before {
+  width: 100%;
+}
+
+.btn-composite--play:hover .btn-composite__label {
+  color: var(--color-purple-brand);
 }
