@@ -8,6 +8,18 @@
   display: flex;
   flex-direction: column;
   background-color: var(--auth-header-bg);
+  animation: authWidgetSlideInRight 0.8s var(--ease-smooth) 0.3s both;
+}
+
+@keyframes authWidgetSlideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .auth-widget__header {
@@ -342,4 +354,12 @@
 
 .auth-widget__input:focus {
   border-color: var(--color-gold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-widget {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }

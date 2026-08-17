@@ -159,28 +159,36 @@
   width: var(--crypto-hub-btn-w);
   display: grid;
   grid-template-rows: 0fr;
+  opacity: 0;
   visibility: hidden;
   z-index: var(--z-dropdown);
-  transition: grid-template-rows var(--duration-normal) var(--ease-smooth),
-    visibility 0s linear var(--duration-normal);
+  transform-origin: top center;
+  transition: grid-template-rows 0.35s var(--ease-smooth),
+    opacity 0.3s var(--ease-smooth),
+    visibility 0.35s step-end;
 }
 
 .crypto-orbit__menu.is-open {
   grid-template-rows: 1fr;
+  opacity: 1;
   visibility: visible;
-  transition: grid-template-rows var(--duration-normal) var(--ease-smooth);
+  transition: grid-template-rows 0.35s var(--ease-smooth),
+    opacity 0.3s var(--ease-smooth),
+    visibility 0s;
 }
 
 .crypto-orbit__menu-inner {
   overflow: hidden;
   min-height: 0;
   background-color: var(--auth-card-bg);
-  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  border-radius: var(--radius-sm);
   box-shadow: var(--shadow-lg);
+  transform: translateY(-8px);
+  transition: transform 0.35s var(--ease-smooth);
 }
 
 .crypto-orbit__menu.is-open .crypto-orbit__menu-inner {
-  border-radius: var(--radius-sm);
+  transform: translateY(0);
 }
 
 .crypto-orbit__menu-list {
@@ -191,8 +199,27 @@
   margin: 0;
 }
 
+.crypto-orbit__menu-item {
+  position: relative;
+  max-height: var(--crypto-hub-btn-h);
+  opacity: 1;
+  transform: translateY(0);
+  overflow: hidden;
+  transition: max-height 0.4s var(--ease-smooth),
+    opacity 0.35s var(--ease-smooth),
+    transform 0.4s var(--ease-smooth);
+}
+
 .crypto-orbit__menu-item + .crypto-orbit__menu-item {
   border-top: var(--border-width-sm) solid var(--auth-border);
+}
+
+.crypto-orbit__menu-item--removing {
+  max-height: 0 !important;
+  opacity: 0 !important;
+  transform: translateY(-100%) !important;
+  pointer-events: none !important;
+  border-top-width: 0 !important;
 }
 
 .crypto-orbit__menu-btn {
@@ -377,57 +404,37 @@
 }
 
 .crypto-orbit__decoration-path {
-  stroke-dasharray: var(--path-length);
-  stroke-dashoffset: var(--path-length);
-  transition: stroke-dashoffset 1.6s var(--ease-smooth) 0.15s;
+  stroke-dasharray: var(--path-length, 600);
+  stroke-dashoffset: var(--path-length, 600);
+  transition: stroke-dashoffset 1.2s var(--ease-smooth) 0.15s;
 }
 
 .crypto-orbit__decoration-dot {
   opacity: 0;
-  transition: opacity 0.4s var(--ease-standard);
+  transition: opacity 0.35s var(--ease-standard);
 }
 
 .crypto-orbit__decoration-dot:nth-of-type(1) {
-  transition-delay: 1.75s;
+  transition-delay: 1.35s;
 }
 
-.crypto-orbit.is-drawn .crypto-orbit__decoration-dot:nth-of-type(1) {
+.crypto-orbit__decoration-dot:nth-of-type(2) {
   transition-delay: 0s;
-  animation: decorationDotIn 0.4s var(--ease-standard) 0s both;
-}
-
-.crypto-orbit.is-drawn .crypto-orbit__decoration-dot:nth-of-type(2) {
-  animation: decorationDotIn 0.4s var(--ease-standard) 1.75s both;
-}
-
-.crypto-orbit.is-drawn .crypto-orbit__decoration-path {
-  animation: decorationPathDraw 1.6s var(--ease-smooth) 0.15s both;
-}
-
-@keyframes decorationDotIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes decorationPathDraw {
-  from {
-    stroke-dashoffset: var(--path-length);
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
 }
 
 .crypto-orbit.is-drawn .crypto-orbit__decoration-path {
   stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.4s var(--ease-smooth) 0.2s;
 }
 
-.crypto-orbit.is-drawn .crypto-orbit__decoration-dot {
+.crypto-orbit.is-drawn .crypto-orbit__decoration-dot:nth-of-type(1) {
   opacity: 1;
+  transition-delay: 0s;
+}
+
+.crypto-orbit.is-drawn .crypto-orbit__decoration-dot:nth-of-type(2) {
+  opacity: 1;
+  transition-delay: 1.6s;
 }
 
 @keyframes ringRotate {

@@ -55,6 +55,7 @@
 .btn-composite--learn {
   background-color: transparent;
   border: none;
+  animation: buttonScaleUp 0.6s var(--ease-smooth) 1.6s both;
 }
 
 .btn-composite--learn .btn-composite__label {
@@ -91,6 +92,7 @@
 .btn-composite--play {
   background-color: transparent;
   border: var(--border-width-sm) solid var(--text-primary);
+  animation: buttonScaleUp 0.6s var(--ease-smooth) 1.75s both;
 }
 
 .btn-composite--play .btn-composite__label {
@@ -121,4 +123,24 @@
 
 .btn-composite--play:hover .btn-composite__label {
   color: var(--color-purple-brand);
+}
+
+@keyframes buttonScaleUp {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-composite--learn,
+  .btn-composite--play {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }

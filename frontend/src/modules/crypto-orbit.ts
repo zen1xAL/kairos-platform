@@ -243,10 +243,27 @@ function initDropdown(): void {
     if (!button) {
       return;
     }
+    const menuItem = button.closest<HTMLElement>('.crypto-orbit__menu-item');
     const coin = ORBIT_COINS.find((item): boolean => item.id === button.dataset.coinId);
-    if (coin) {
-      addCoinToOrbit(coin);
-      closeDropdown(dropdown, trigger);
+    if (!coin) {
+      return;
+    }
+
+    addCoinToOrbit(coin);
+
+    if (menuItem) {
+      menuItem.classList.add('crypto-orbit__menu-item--removing');
+      menuItem.addEventListener(
+        'transitionend',
+        (): void => {
+          menuItem.remove();
+          const remaining = menuList.querySelectorAll('.crypto-orbit__menu-item');
+          if (remaining.length === 0) {
+            closeDropdown(dropdown, trigger);
+          }
+        },
+        { once: true }
+      );
     }
   });
 
@@ -279,7 +296,7 @@ function initDecorations(): void {
         entry.target.classList.toggle('is-drawn', entry.isIntersecting);
       }
     },
-    { threshold: 0.35 }
+    { threshold: 0.2 }
   );
   observer.observe(section);
 }
