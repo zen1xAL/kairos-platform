@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Backend;
 
-final class StateSigner
+final readonly class StateSigner
 {
     private const STATE_TTL_SECONDS = 600;
 
-    private readonly string $secret;
-
-    public function __construct(string $secret)
-    {
-        $this->secret = $secret;
+    public function __construct(
+        private string $secret,
+    ) {
     }
 
     public function create(string $origin): string

@@ -1,5 +1,9 @@
 type AuthTab = 'personal' | 'business';
 
+function isAuthTab(value: unknown): value is AuthTab {
+  return value === 'personal' || value === 'business';
+}
+
 function setActiveTab(container: HTMLElement, activeTab: AuthTab): void {
   container.dataset.activeTab = activeTab;
   const tabs = container.querySelectorAll<HTMLButtonElement>('.auth-widget__tab');
@@ -11,6 +15,32 @@ function setActiveTab(container: HTMLElement, activeTab: AuthTab): void {
   });
 }
 
+function handleTabClick(widget: HTMLElement, target: HTMLElement): boolean {
+  const tab = target.closest<HTMLButtonElement>('.auth-widget__tab');
+  if (!tab) {
+    return false;
+  }
+  const tabId = tab.dataset.tab;
+  if (isAuthTab(tabId)) {
+    setActiveTab(widget, tabId);
+  }
+  return true;
+}
+
+function handleActionClick(target: HTMLElement): void {
+  if (target.closest('.auth-widget__google-btn')) {
+    document.dispatchEvent(new CustomEvent('auth:google'));
+    return;
+  }
+  if (target.closest('.auth-widget__email-btn')) {
+    document.dispatchEvent(new CustomEvent('auth:email'));
+    return;
+  }
+  if (target.closest('.auth-widget__create-btn')) {
+    document.dispatchEvent(new CustomEvent('auth:create-account'));
+  }
+}
+
 export function initAuthWidget(): void {
   const widget = document.querySelector<HTMLElement>('.auth-widget');
   if (!widget) {
@@ -20,35 +50,13 @@ export function initAuthWidget(): void {
   setActiveTab(widget, 'personal');
 
   widget.addEventListener('click', (event: MouseEvent): void => {
-    const target = event.target as HTMLElement | null;
-    if (!target) {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) {
       return;
     }
-
-    const tab = target.closest<HTMLButtonElement>('.auth-widget__tab');
-    if (tab) {
-      const tabId = tab.dataset.tab as AuthTab | undefined;
-      if (tabId) {
-        setActiveTab(widget, tabId);
-      }
+    if (handleTabClick(widget, target)) {
       return;
     }
-
-    const googleBtn = target.closest<HTMLButtonElement>('.auth-widget__google-btn');
-    if (googleBtn) {
-      document.dispatchEvent(new CustomEvent('auth:google'));
-      return;
-    }
-
-    const emailBtn = target.closest<HTMLButtonElement>('.auth-widget__email-btn');
-    if (emailBtn) {
-      document.dispatchEvent(new CustomEvent('auth:email'));
-      return;
-    }
-
-    const createBtn = target.closest<HTMLButtonElement>('.auth-widget__create-btn');
-    if (createBtn) {
-      document.dispatchEvent(new CustomEvent('auth:create-account'));
-    }
+    handleActionClick(target);
   });
 }

@@ -7,7 +7,7 @@ namespace Backend;
 use Backend\Dto\GoogleProfile;
 use Backend\Dto\TokenPair;
 
-final class GoogleOAuthService
+final readonly class GoogleOAuthService
 {
     private const AUTH_URI = 'https://accounts.google.com/o/oauth2/auth';
 
@@ -18,7 +18,7 @@ final class GoogleOAuthService
     private const SCOPE = 'openid email profile';
 
     public function __construct(
-        private readonly Config $config
+        private Config $config
     ) {
     }
 
@@ -88,7 +88,7 @@ final class GoogleOAuthService
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => http_build_query($fields),
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT => 15,
+            CURLOPT_TIMEOUT => 10,
             CURLOPT_HTTPHEADER => ['Content-Type: application/x-www-form-urlencoded'],
         ]);
 
@@ -109,7 +109,7 @@ final class GoogleOAuthService
 
         curl_setopt_array($handle, [
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT => 15,
+            CURLOPT_TIMEOUT => 10,
             CURLOPT_HTTPHEADER => ['Authorization: Bearer ' . $accessToken],
         ]);
 

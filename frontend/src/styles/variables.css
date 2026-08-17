@@ -102,6 +102,7 @@
   --hero-btn-h: 3.4375rem;
   --hero-btn-bevel-w: 3.4375rem;
   --hero-btn-fs: 0.875rem;
+  --btn-icon-size: 1.25rem;
   --clip-bevel: polygon(25% 0, 100% 0, 100% 100%, 0 100%);
 
   --auth-w: 26.5625rem;
@@ -143,7 +144,7 @@
   --auth-border: #E2E8F0;
   --auth-tab-active-border: var(--color-purple-brand);
 
-  --drawer-width: min(320px, 85vw);
+  --drawer-width: min(65vw, 520px);
   --divider-height: 14px;
 
   --modal-close-size: 46px;
@@ -234,12 +235,17 @@
     --hero-pt: 6rem;
     --hero-title-fs: 2.25rem;
     --hero-desc-fs: 0.875rem;
-    --hero-btn-w: 100%;
+    --hero-btn-w: 12.9375rem;
+    --text-5xl: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
     --auth-w: 100%;
     --auth-h: auto;
     --auth-inner-w: 100%;
     --auth-divider-w: 100%;
     --auth-journey-text-w: 100%;
-    --text-5xl: 2rem;
   }
 }

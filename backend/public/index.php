@@ -22,7 +22,7 @@ use Backend\OAuthException;
 use Backend\Response;
 use Backend\StateSigner;
 
-$config = Config::fromEnvFile(__DIR__ . '/../.env');
+$config = Config::load();
 $service = new GoogleOAuthService($config);
 $stateSigner = new StateSigner($config->appSecret());
 

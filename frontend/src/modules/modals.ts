@@ -1,5 +1,17 @@
 type VideoAction = 'toggle' | 'mute' | 'fullscreen';
 
+function isVideoAction(value: unknown): value is VideoAction {
+  return value === 'toggle' || value === 'mute' || value === 'fullscreen';
+}
+
+function isModalOpenEvent(event: Event): event is CustomEvent<{ id: string }> {
+  if (!(event instanceof CustomEvent)) {
+    return false;
+  }
+  const detail: unknown = event.detail;
+  return typeof detail === 'object' && detail !== null && typeof (detail as { id: unknown }).id === 'string';
+}
+
 function playVideo(video: HTMLVideoElement): void {
   const playPromise = video.play();
   if (playPromise !== undefined) {
@@ -56,17 +68,7 @@ function handleVideoAction(modal: HTMLDialogElement, action: VideoAction, target
   toggleFullscreen(modal);
 }
 
-function initVideoModal(modal: HTMLDialogElement): void {
-  if (modal.dataset.initialized === 'true') {
-    return;
-  }
-  modal.dataset.initialized = 'true';
-
-  const video = modal.querySelector<HTMLVideoElement>('.video-modal__video');
-  if (!video) {
-    return;
-  }
-
+function setupVideoListeners(modal: HTMLDialogElement, video: HTMLVideoElement): void {
   modal.addEventListener('click', (event: MouseEvent): void => {
     const target = event.target;
     if (!(target instanceof Element)) {
@@ -80,7 +82,7 @@ function initVideoModal(modal: HTMLDialogElement): void {
 
     const control = target.closest<HTMLElement>('[data-video-action]');
     const action = control?.dataset.videoAction;
-    if (control && (action === 'toggle' || action === 'mute' || action === 'fullscreen')) {
+    if (control && isVideoAction(action)) {
       handleVideoAction(modal, action, control);
     }
   });
@@ -94,6 +96,18 @@ function initVideoModal(modal: HTMLDialogElement): void {
       void document.exitFullscreen();
     }
   });
+}
+
+function initVideoModal(modal: HTMLDialogElement): void {
+  if (modal.dataset.initialized === 'true') {
+    return;
+  }
+  modal.dataset.initialized = 'true';
+
+  const video = modal.querySelector<HTMLVideoElement>('.video-modal__video');
+  if (video) {
+    setupVideoListeners(modal, video);
+  }
 }
 
 function startVideoModal(modal: HTMLDialogElement): void {
@@ -127,19 +141,15 @@ function openModalById(id: string): void {
 
 export function initModals(): void {
   document.addEventListener('modal:open', (event: Event): void => {
-    const detail = (event as CustomEvent<{ id: string }>).detail;
-    if (detail && typeof detail.id === 'string') {
-      openModalById(detail.id);
+    if (isModalOpenEvent(event)) {
+      openModalById(event.detail.id);
     }
   });
 
   for (const modal of document.querySelectorAll<HTMLDialogElement>('dialog')) {
     modal.addEventListener('click', (event: MouseEvent): void => {
       const target = event.target;
-      if (!(target instanceof Element)) {
-        return;
-      }
-      if (target.closest('[data-action="close-modal"]')) {
+      if (target instanceof Element && target.closest('[data-action="close-modal"]')) {
         modal.close();
       }
     });

@@ -8,7 +8,6 @@ import {
 import { cryptoWS } from './crypto-ws';
 
 const FLASH_DURATION_MS = 600;
-
 const RING_DESIGN_SIZE = 764;
 const RAIL_HEIGHT = 402;
 const ARC_RADIUS = 466;
@@ -37,6 +36,16 @@ function getRail(side: OrbitSide): HTMLElement | null {
   return side === 'left' ? railLeft : railRight;
 }
 
+function getChildHtmlElements(parent: HTMLElement): HTMLElement[] {
+  const list: HTMLElement[] = [];
+  for (const child of parent.children) {
+    if (child instanceof HTMLElement) {
+      list.push(child);
+    }
+  }
+  return list;
+}
+
 function createCard(coin: CryptoCoinConfig, side: OrbitSide): HTMLElement {
   const card = document.createElement('div');
   card.className = `crypto-orbit__item crypto-orbit__item--${side}`;
@@ -62,7 +71,8 @@ function createCard(coin: CryptoCoinConfig, side: OrbitSide): HTMLElement {
 
   const inner = document.createElement('span');
   inner.className = 'crypto-orbit__card-inner';
-  for (const node of side === 'left' ? [price, name, iconWrap] : [iconWrap, name, price]) {
+  const nodes = side === 'left' ? [price, name, iconWrap] : [iconWrap, name, price];
+  for (const node of nodes) {
     inner.appendChild(node);
   }
   card.appendChild(inner);
@@ -83,7 +93,7 @@ function layoutRail(side: OrbitSide, centerX: number, centerY: number, scale: nu
   if (!rail) {
     return;
   }
-  const cards = [...rail.children] as HTMLElement[];
+  const cards = getChildHtmlElements(rail);
   const count = cards.length;
 
   cards.forEach((card, index): void => {
@@ -96,19 +106,24 @@ function layoutRail(side: OrbitSide, centerX: number, centerY: number, scale: nu
   });
 }
 
-function layoutOrbit(): void {
-  if (!wavesBox || !wavesBox.offsetParent) {
-    return;
-  }
-  if (!isDesktopLayout()) {
-    for (const side of ['left', 'right'] as const) {
-      const rail = getRail(side);
-      if (rail) {
-        for (const card of [...rail.children] as HTMLElement[]) {
-          card.style.transform = '';
-        }
+function resetRailTransforms(): void {
+  for (const side of ['left', 'right'] as const) {
+    const rail = getRail(side);
+    if (rail) {
+      for (const card of getChildHtmlElements(rail)) {
+        card.style.transform = '';
       }
     }
+  }
+}
+
+function layoutOrbit(): void {
+  if (!isDesktopLayout()) {
+    resetRailTransforms();
+    return;
+  }
+
+  if (!wavesBox || !wavesBox.offsetParent) {
     return;
   }
 
@@ -211,6 +226,36 @@ function closeDropdown(dropdown: HTMLElement, trigger: HTMLButtonElement): void 
   trigger.setAttribute('aria-expanded', 'false');
 }
 
+function handleMenuItemClick(
+  button: HTMLButtonElement,
+  dropdown: HTMLElement,
+  trigger: HTMLButtonElement,
+  menuList: HTMLElement
+): void {
+  const menuItem = button.closest<HTMLElement>('.crypto-orbit__menu-item');
+  const coin = ORBIT_COINS.find((item): boolean => item.id === button.dataset.coinId);
+  if (!coin) {
+    return;
+  }
+
+  addCoinToOrbit(coin);
+
+  if (menuItem) {
+    menuItem.classList.add('crypto-orbit__menu-item--removing');
+    menuItem.addEventListener(
+      'transitionend',
+      (): void => {
+        menuItem.remove();
+        const remaining = menuList.querySelectorAll('.crypto-orbit__menu-item');
+        if (remaining.length === 0) {
+          closeDropdown(dropdown, trigger);
+        }
+      },
+      { once: true }
+    );
+  }
+}
+
 function initDropdown(): void {
   const dropdown = document.querySelector<HTMLElement>('.crypto-orbit__dropdown');
   const trigger = document.querySelector<HTMLButtonElement>('[data-action="open-add-crypto"]');
@@ -240,30 +285,8 @@ function initDropdown(): void {
       return;
     }
     const button = target.closest<HTMLButtonElement>('.crypto-orbit__menu-btn');
-    if (!button) {
-      return;
-    }
-    const menuItem = button.closest<HTMLElement>('.crypto-orbit__menu-item');
-    const coin = ORBIT_COINS.find((item): boolean => item.id === button.dataset.coinId);
-    if (!coin) {
-      return;
-    }
-
-    addCoinToOrbit(coin);
-
-    if (menuItem) {
-      menuItem.classList.add('crypto-orbit__menu-item--removing');
-      menuItem.addEventListener(
-        'transitionend',
-        (): void => {
-          menuItem.remove();
-          const remaining = menuList.querySelectorAll('.crypto-orbit__menu-item');
-          if (remaining.length === 0) {
-            closeDropdown(dropdown, trigger);
-          }
-        },
-        { once: true }
-      );
+    if (button) {
+      handleMenuItemClick(button, dropdown, trigger, menuList);
     }
   });
 

@@ -4,68 +4,58 @@ declare(strict_types=1);
 
 namespace Backend;
 
-final class Config
+final readonly class Config
 {
-    private readonly string $clientId;
-
-    private readonly string $clientSecret;
-
-    private readonly string $redirectUri;
-
-    private readonly array $frontendOrigins;
-
-    private readonly string $appSecret;
-
     public function __construct(
-        string $clientId,
-        string $clientSecret,
-        string $redirectUri,
-        array $frontendOrigins,
-        string $appSecret
+        public string $clientId,
+        public string $clientSecret,
+        public string $redirectUri,
+        public array $frontendOrigins,
+        public string $appSecret,
     ) {
-        $this->clientId = $clientId;
-        $this->clientSecret = $clientSecret;
-        $this->redirectUri = $redirectUri;
-        $this->frontendOrigins = $frontendOrigins;
-        $this->appSecret = $appSecret;
+    }
+
+    public static function load(?string $envPath = null): self
+    {
+        $values = [];
+        $path = $envPath ?? __DIR__ . '/../.env';
+
+        if (is_file($path)) {
+            $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
+            foreach ($lines as $line) {
+                if (str_starts_with($line, '#') || !str_contains($line, '=')) {
+                    continue;
+                }
+                [$key, $value] = explode('=', $line, 2);
+                $values[trim($key)] = trim($value);
+            }
+        }
+
+        return new self(
+            self::resolve($values, 'GOOGLE_CLIENT_ID'),
+            self::resolve($values, 'GOOGLE_CLIENT_SECRET'),
+            self::resolve($values, 'GOOGLE_REDIRECT_URI'),
+            array_map(
+                static fn (string $origin): string => rtrim($origin, '/'),
+                explode(',', self::resolve($values, 'FRONTEND_ORIGINS'))
+            ),
+            self::resolve($values, 'APP_SECRET'),
+        );
     }
 
     public static function fromEnvFile(string $path): self
     {
-        if (!is_file($path)) {
-            throw new InvalidConfigurationException("Environment file not found: {$path}");
-        }
-
-        $values = [];
-        $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
-        foreach ($lines as $line) {
-            if (str_starts_with($line, '#') || !str_contains($line, '=')) {
-                continue;
-            }
-            [$key, $value] = explode('=', $line, 2);
-            $values[trim($key)] = trim($value);
-        }
-
-        return new self(
-            self::require($values, 'GOOGLE_CLIENT_ID'),
-            self::require($values, 'GOOGLE_CLIENT_SECRET'),
-            self::require($values, 'GOOGLE_REDIRECT_URI'),
-            array_map(
-                static fn (string $origin): string => rtrim($origin, '/'),
-                explode(',', self::require($values, 'FRONTEND_ORIGINS'))
-            ),
-            self::require($values, 'APP_SECRET')
-        );
+        return self::load($path);
     }
 
-    private static function require(array $values, string $key): string
+    private static function resolve(array $values, string $key): string
     {
-        $value = $values[$key] ?? '';
+        $value = $values[$key] ?? ($_ENV[$key] ?? (getenv($key) ?: ''));
         if ($value === '') {
             throw new InvalidConfigurationException("Missing required environment value: {$key}");
         }
 
-        return $value;
+        return (string) $value;
     }
 
     public function clientId(): string

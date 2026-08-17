@@ -8,6 +8,10 @@ interface AuthProfile {
 const STORAGE_KEY = 'kairos.auth.profile';
 const AUTH_HASH_PREFIX = '#auth=';
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null;
+}
+
 function decodeBase64Url(value: string): string {
   const normalized = value.replace(/-/g, '+').replace(/_/g, '/');
   const padded = normalized + '='.repeat((4 - (normalized.length % 4)) % 4);
@@ -15,15 +19,14 @@ function decodeBase64Url(value: string): string {
 }
 
 function isAuthProfile(value: unknown): value is AuthProfile {
-  if (typeof value !== 'object' || value === null) {
+  if (!isRecord(value)) {
     return false;
   }
-  const record = value as Record<string, unknown>;
   return (
-    typeof record.name === 'string' &&
-    typeof record.email === 'string' &&
-    typeof record.picture === 'string' &&
-    typeof record.token === 'string'
+    typeof value.name === 'string' &&
+    typeof value.email === 'string' &&
+    typeof value.picture === 'string' &&
+    typeof value.token === 'string'
   );
 }
 
@@ -32,14 +35,12 @@ function readProfileFromHash(): AuthProfile | null {
     return null;
   }
   try {
-    const parsed: unknown = JSON.parse(decodeBase64Url(window.location.hash.slice(AUTH_HASH_PREFIX.length)));
-    if (isAuthProfile(parsed)) {
-      return parsed;
-    }
+    const rawJson = decodeBase64Url(window.location.hash.slice(AUTH_HASH_PREFIX.length));
+    const parsed: unknown = JSON.parse(rawJson);
+    return isAuthProfile(parsed) ? parsed : null;
   } catch {
-    console.warn('Ignoring malformed auth payload in URL');
+    return null;
   }
-  return null;
 }
 
 function readStoredProfile(): AuthProfile | null {
@@ -63,16 +64,7 @@ function clearStoredProfile(): void {
   window.sessionStorage.removeItem(STORAGE_KEY);
 }
 
-function createProfileCard(profile: AuthProfile): HTMLElement {
-  const card = document.createElement('div');
-  card.className = 'auth-widget__profile';
-
-  const avatar = document.createElement('img');
-  avatar.src = profile.picture;
-  avatar.alt = profile.name;
-  avatar.className = 'auth-widget__profile-avatar';
-  avatar.referrerPolicy = 'no-referrer';
-
+function createProfileDetails(profile: AuthProfile): HTMLElement {
   const details = document.createElement('div');
   details.className = 'auth-widget__profile-details';
 
@@ -85,7 +77,10 @@ function createProfileCard(profile: AuthProfile): HTMLElement {
   email.textContent = profile.email;
 
   details.append(name, email);
+  return details;
+}
 
+function createSignOutButton(): HTMLButtonElement {
   const signOut = document.createElement('button');
   signOut.type = 'button';
   signOut.className = 'auth-widget__create-btn auth-widget__profile-signout';
@@ -94,34 +89,41 @@ function createProfileCard(profile: AuthProfile): HTMLElement {
     clearStoredProfile();
     window.location.reload();
   });
+  return signOut;
+}
 
-  card.append(avatar, details, signOut);
+function createProfileCard(profile: AuthProfile): HTMLElement {
+  const card = document.createElement('div');
+  card.className = 'auth-widget__profile';
+
+  const avatar = document.createElement('img');
+  avatar.src = profile.picture;
+  avatar.alt = profile.name;
+  avatar.className = 'auth-widget__profile-avatar';
+  avatar.referrerPolicy = 'no-referrer';
+
+  card.append(avatar, createProfileDetails(profile), createSignOutButton());
   return card;
 }
 
 function renderProfile(widget: HTMLElement, profile: AuthProfile): void {
   const body = widget.querySelector('.auth-widget__body');
-  if (!body) {
-    return;
+  if (body) {
+    body.replaceChildren(createProfileCard(profile));
   }
-  body.replaceChildren(createProfileCard(profile));
 }
 
 async function startGoogleAuth(): Promise<void> {
   try {
     const response = await window.fetch('/api/auth/google/url');
     if (!response.ok) {
-      throw new Error(`Auth endpoint returned ${response.status}`);
+      return;
     }
     const payload: unknown = await response.json();
-    const record = typeof payload === 'object' && payload !== null ? (payload as Record<string, unknown>) : {};
-    const url = record.url;
-    if (typeof url !== 'string') {
-      throw new Error('Auth endpoint response is missing url');
+    if (isRecord(payload) && typeof payload.url === 'string') {
+      window.location.assign(payload.url);
     }
-    window.location.assign(url);
-  } catch (error) {
-    console.warn('Google authorization failed to start:', error);
+  } catch {
   }
 }
 

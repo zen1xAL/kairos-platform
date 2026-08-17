@@ -47,8 +47,8 @@
     <div class="drawer__backdrop" data-action="close-menu"></div>
     <div class="drawer__content" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
       <div class="drawer__header">
-        <a href="#" class="header__logo" aria-label="KAIROS Platform Home">
-          <img src="./assets/icons/logo.svg" alt="KAIROS" class="header__logo-img">
+        <a href="#" class="drawer__logo" aria-label="KAIROS Platform Home">
+          <img src="./assets/icons/logo.svg" alt="KAIROS" class="drawer__logo-img">
         </a>
         <button class="drawer__close" aria-label="Close navigation menu" data-action="close-menu">
           <img src="./assets/icons/close.svg" alt="" aria-hidden="true">
@@ -56,7 +56,7 @@
       </div>
       <nav class="drawer__nav" aria-label="Mobile Menu Links">
         <ul class="drawer__nav-list">
-          <li><a href="#home" class="drawer__nav-link drawer__nav-link--active" data-action="nav-link">HOME</a></li>
+          <li><a href="#home" class="drawer__nav-link" data-action="nav-link">HOME</a></li>
           <li><a href="#about" class="drawer__nav-link" data-action="nav-link">ABOUT US</a></li>
           <li><a href="#projects" class="drawer__nav-link" data-action="nav-link">PROJECTS</a></li>
           <li><a href="#contact" class="drawer__nav-link" data-action="nav-link">CONTACT US</a></li>
@@ -213,9 +213,9 @@
                   <feDisplacementMap in="SourceGraphic" in2="noise" scale="14" xChannelSelector="R" yChannelSelector="G" />
                 </filter>
               </defs>
-              <circle class="crypto-orbit__wave-ring crypto-orbit__wave-ring--1" cx="400" cy="400" r="290" filter="url(#waveNoiseFilter)" />
-              <circle class="crypto-orbit__wave-ring crypto-orbit__wave-ring--2" cx="400" cy="400" r="330" filter="url(#waveNoiseFilter)" />
-              <circle class="crypto-orbit__wave-ring crypto-orbit__wave-ring--3" cx="400" cy="400" r="370" filter="url(#waveNoiseFilter)" />
+              <circle class="crypto-orbit__wave-ring crypto-orbit__wave-ring--1" cx="400" cy="400" r="300" filter="url(#waveNoiseFilter)" />
+              <circle class="crypto-orbit__wave-ring crypto-orbit__wave-ring--2" cx="400" cy="400" r="345" filter="url(#waveNoiseFilter)" />
+              <circle class="crypto-orbit__wave-ring crypto-orbit__wave-ring--3" cx="400" cy="400" r="385" filter="url(#waveNoiseFilter)" />
             </svg>
           </div>
           <div class="crypto-orbit__hub">
