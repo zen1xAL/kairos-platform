@@ -95,7 +95,6 @@ final readonly class GoogleOAuthService
         $raw = curl_exec($handle);
         $status = (int) curl_getinfo($handle, CURLINFO_RESPONSE_CODE);
         $error = curl_error($handle);
-        curl_close($handle);
 
         return $this->decodeGoogleResponse($raw, $status, $error, 'token');
     }
@@ -116,7 +115,6 @@ final readonly class GoogleOAuthService
         $raw = curl_exec($handle);
         $status = (int) curl_getinfo($handle, CURLINFO_RESPONSE_CODE);
         $error = curl_error($handle);
-        curl_close($handle);
 
         return $this->decodeGoogleResponse($raw, $status, $error, 'profile');
     }

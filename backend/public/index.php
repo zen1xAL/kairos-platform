@@ -26,8 +26,32 @@ $config = Config::load();
 $service = new GoogleOAuthService($config);
 $stateSigner = new StateSigner($config->appSecret());
 
+$requestHost = $_SERVER['HTTP_HOST'] ?? '';
+$isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https';
+$currentServerOrigin = $requestHost !== '' ? ($isHttps ? 'https://' : 'http://') . $requestHost : '';
+
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+if ($origin === '' && isset($_SERVER['HTTP_REFERER'])) {
+    $parsedScheme = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_SCHEME) ?? '';
+    $parsedHost = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST) ?? '';
+    if ($parsedScheme !== '' && $parsedHost !== '') {
+        $refererOrigin = $parsedScheme . '://' . $parsedHost;
+        $parsedPort = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PORT);
+        if ($parsedPort) {
+            $refererOrigin .= ':' . $parsedPort;
+        }
+        $origin = $refererOrigin;
+    }
+}
+if ($origin === '' && $currentServerOrigin !== '') {
+    $origin = $currentServerOrigin;
+}
+
 $allowedOrigins = $config->frontendOrigins();
+if ($currentServerOrigin !== '' && !in_array($currentServerOrigin, $allowedOrigins, true)) {
+    $allowedOrigins[] = $currentServerOrigin;
+}
+
 if (in_array($origin, $allowedOrigins, true)) {
     header('Access-Control-Allow-Origin: ' . $origin);
     header('Vary: Origin');
